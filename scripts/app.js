@@ -6,7 +6,7 @@ let search = document.getElementById("search");
 let searchBtn = document.getElementById("text");
 
 form.addEventListener("submit", (event) => {
-    event.preventDefault;
+    event.preventDefault();
 })
 
 
