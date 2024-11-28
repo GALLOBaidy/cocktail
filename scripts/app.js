@@ -4,6 +4,7 @@ let ingredient = document.getElementById("ingredient");
 let listCocktail = document.getElementById("cocktailList");
 let search = document.getElementById("search");
 let searchBtn = document.getElementById("btn");
+let articleC = document.getElementById("modal");
 
 //On ajoute un événement sur le formulaire et on le bloque pour éviter que la page se réactualise automatiquement
 form.addEventListener("submit", (event) => {
@@ -107,29 +108,56 @@ function showCocktail(cocktails) {
         let img = cocktail.strDrinkThumb;
 
         let drink = cocktail.strDrink;
+        let id = cocktail.idDrink;
 
         cardCocktail.innerHTML = "<img src= '" + img + "'/>" +
             "<h5>" + drink + "</h5>" +
-            "<button> Voir plus</button>";
+            "<button data-bs-toggle='modal' data-bs-target='#exampleModal' onclick='base(" + id + ")'> Voir plus</button>";
 
         listCocktail.appendChild(cardCocktail);
     });
 }
 
 
+
 function base(id) {
 
     fetch(`${API_BASE}lookup.php?i=${id}`)
         .then((response) => response.json())
-        .then((data) => showDetail(data.drinks[0]))
+        .then((data) => {
+            console.log(data.drinks[0]);
+            showDetail(data.drinks);
+
+        })
         .catch((console.error));
-    console.log(data.drinks[0]);
-
-}
-
-
-function showDetail() {
 
 
 }
+
+
+function showDetail(_cocktail) {
+
+    for (let cocktail of _cocktail) {
+
+        
+        let detail = document.querySelector(".modal-body");
+        
+        let img = cocktail.strDrinkThumb;
+        let drink = cocktail.strDrink;
+        let category = cocktail.strCategory;
+        let ingredient = cocktail.strIngredient1;
+        
+        
+        detail.innerHTML =  "<h1>" + drink + "</h1>" +
+        "<img src='" + img + "'/>" + 
+        "<p>" + category + "</p>" +
+        "<p>" + ingredient + "</p>";
+        
+        
+        // articleC.appendChild(detail);
+    }
+}
+
+
+
 
