@@ -205,3 +205,5 @@ function showDetail(_cocktail) {
       })
   }
 }
+
+
